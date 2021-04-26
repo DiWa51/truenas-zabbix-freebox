@@ -86,7 +86,7 @@
                     <verify_peer>0</verify_peer>
                     <verify_host>0</verify_host>
                     <master_item>
-                        <key>freebox.py[connection]</key>
+                        <key>fbx_monitor.py[connection]</key>
                     </master_item>
                 </item>
                 <item>
@@ -152,7 +152,7 @@
                     <verify_peer>0</verify_peer>
                     <verify_host>0</verify_host>
                     <master_item>
-                        <key>freebox.py[system]</key>
+                        <key>fbx_monitor.py[system]</key>
                     </master_item>
                 </item>
                 <item>
@@ -218,7 +218,7 @@
                     <verify_peer>0</verify_peer>
                     <verify_host>0</verify_host>
                     <master_item>
-                        <key>freebox.py[connection]</key>
+                        <key>fbx_monitor.py[connection]</key>
                     </master_item>
                 </item>
                 <item>
@@ -284,7 +284,7 @@
                     <verify_peer>0</verify_peer>
                     <verify_host>0</verify_host>
                     <master_item>
-                        <key>freebox.py[system]</key>
+                        <key>fbx_monitor.py[system]</key>
                     </master_item>
                 </item>
                 <item>
@@ -350,7 +350,7 @@
                     <verify_peer>0</verify_peer>
                     <verify_host>0</verify_host>
                     <master_item>
-                        <key>freebox.py[system]</key>
+                        <key>fbx_monitor.py[system]</key>
                     </master_item>
                 </item>
                 <item>
@@ -358,7 +358,7 @@
                     <type>10</type>
                     <snmp_community/>
                     <snmp_oid/>
-                    <key>freebox.py[connection]</key>
+                    <key>fbx_monitor.py[connection]</key>
                     <delay>60s</delay>
                     <history>0</history>
                     <trends>0</trends>
@@ -417,7 +417,7 @@
                     <type>10</type>
                     <snmp_community/>
                     <snmp_oid/>
-                    <key>freebox.py[system]</key>
+                    <key>fbx_monitor.py[system]</key>
                     <delay>60s</delay>
                     <history>0</history>
                     <trends>0</trends>
@@ -534,7 +534,7 @@
                     <verify_peer>0</verify_peer>
                     <verify_host>0</verify_host>
                     <master_item>
-                        <key>freebox.py[system]</key>
+                        <key>fbx_monitor.py[system]</key>
                     </master_item>
                 </item>
                 <item>
@@ -600,7 +600,7 @@
                     <verify_peer>0</verify_peer>
                     <verify_host>0</verify_host>
                     <master_item>
-                        <key>freebox.py[system]</key>
+                        <key>fbx_monitor.py[system]</key>
                     </master_item>
                 </item>
                 <item>
@@ -666,7 +666,7 @@
                     <verify_peer>0</verify_peer>
                     <verify_host>0</verify_host>
                     <master_item>
-                        <key>freebox.py[system]</key>
+                        <key>fbx_monitor.py[system]</key>
                     </master_item>
                 </item>
                 <item>
@@ -732,7 +732,7 @@
                     <verify_peer>0</verify_peer>
                     <verify_host>0</verify_host>
                     <master_item>
-                        <key>freebox.py[system]</key>
+                        <key>fbx_monitor.py[system]</key>
                     </master_item>
                 </item>
                 <item>
@@ -798,7 +798,7 @@
                     <verify_peer>0</verify_peer>
                     <verify_host>0</verify_host>
                     <master_item>
-                        <key>freebox.py[connection]</key>
+                        <key>fbx_monitor.py[connection]</key>
                     </master_item>
                 </item>
                 <item>
@@ -864,7 +864,7 @@
                     <verify_peer>0</verify_peer>
                     <verify_host>0</verify_host>
                     <master_item>
-                        <key>freebox.py[system]</key>
+                        <key>fbx_monitor.py[system]</key>
                     </master_item>
                 </item>
             </items>

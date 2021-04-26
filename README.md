@@ -1,6 +1,19 @@
 Zabbix Freebox Monitoring
 =========================
 
+Install
+-------
+
+```
+cd /usr/local/src
+git clone git@github.com:GuillaumeHullin/freebox-monitoring.git
+cd freebox-monitoring
+cp fbx_monitor.py /usr/lib/zabbix/externalscripts/fbx_monitor.py
+chmod +x /usr/lib/zabbix/externalscripts/fbx_monitor.py
+```
+
+You might need to overide the variable **api_url** by replacing *mafreebox.freebox.fr* with your Freebox IP address, in case of a double WAN setup.
+
 Requirements
 ------------
 
