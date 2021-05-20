@@ -4,7 +4,7 @@ Zabbix Freebox Monitoring
 Install
 -------
 
-```
+```bash
 cd /usr/local/src
 git clone git@github.com:GuillaumeHullin/freebox-monitoring.git
 cd freebox-monitoring
