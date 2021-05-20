@@ -21,6 +21,7 @@ You need Python 3.6 or above. All required packages is listed on requirements.tx
 please type the following command to install all requirements:
 
 ```
+apt install python3-pip
 pip3 install -r requirements.txt
 ```
 
