@@ -8,7 +8,13 @@ Install
 cd /usr/local/src
 git clone git@github.com:GuillaumeHullin/freebox-monitoring.git
 cd freebox-monitoring
-cp fbx_monitor.py /usr/lib/zabbix/externalscripts/fbx_monitor.py
+
+# If you have only one WAN:
+    cp fbx_monitor.py /usr/lib/zabbix/externalscripts/fbx_monitor.py
+
+# If you have some kind of double-WAN network balancing:
+    sed 's/mafreebox.freebox.fr/192.168.1.1/g' fbx_monitor.py > /usr/lib/zabbix/externalscripts/fbx_monitor.py
+
 chmod +x /usr/lib/zabbix/externalscripts/fbx_monitor.py
 ```
 
