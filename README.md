@@ -1,6 +1,17 @@
 Zabbix Freebox Monitoring
 =========================
 
+Requirements
+------------
+
+You need Python 3.6 or above. All required packages is listed on requirements.txt
+please type the following command to install all requirements:
+
+```
+apt install python3-pip
+pip3 install -r requirements.txt
+```
+
 Install
 -------
 
@@ -16,33 +27,15 @@ cd freebox-monitoring
     sed 's/mafreebox.freebox.fr/192.168.1.1/g' fbx_monitor.py > /usr/lib/zabbix/externalscripts/fbx_monitor.py
 
 chmod +x /usr/lib/zabbix/externalscripts/fbx_monitor.py
-```
 
-You might need to overide the variable **api_url** by replacing *mafreebox.freebox.fr* with your Freebox IP address, in case of a double WAN setup.
+# Create the token
+python3 /usr/lib/zabbix/externalscripts/fbx_monitor.py authorize
+# You will have to confirm the application access on Freebox front panel.
 
-Requirements
-------------
-
-You need Python 3.6 or above. All required packages is listed on requirements.txt
-please type the following command to install all requirements:
+# Give permission to Zabbix to check the token
+chown zabbix:zabbix /etc/xdg/freebox-monitoring/config.ini
 
 ```
-apt install python3-pip
-pip3 install -r requirements.txt
-```
-
-
-Setup
------
-
-The script must be authorized on the Livebox. Type the following command:
-
-```
-python3 ./fbx_monitor.py authorize
-```
-
-You will have to confirm the application access on Freebox front panel.
-
 
 Usage
 -----
