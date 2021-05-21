@@ -270,8 +270,8 @@ class MonitoringAgent:
 
 class Settings:
     config = ConfigParser()
-    app_dir = AppDirs(appname="fbx-Zabbox", appauthor="Webcentric")
-    file_path_cache = path_join(app_dir.user_cache_dir, "config.ini")
+    app_dir = AppDirs(appname="freebox-monitoring")
+    file_path_cache = path_join(app_dir.site_config_dir, "config.ini")
     instances = []
 
     def __init__(self):
@@ -279,9 +279,9 @@ class Settings:
         self.config.read([self.file_path_cache])
 
     def save(self):
-        if not exists(self.app_dir.user_cache_dir):
+        if not exists(self.app_dir.site_config_dir):
             from os import makedirs
-            makedirs(self.app_dir.user_cache_dir)
+            makedirs(self.app_dir.site_config_dir)
 
         for i in self.instances:
             self.save_object(i)
