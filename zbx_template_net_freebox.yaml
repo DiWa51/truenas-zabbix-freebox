@@ -1,6 +1,6 @@
 zabbix_export:
   version: '6.0'
-  date: '2023-08-01T17:54:15Z'
+  date: '2023-08-01T18:03:52Z'
   groups:
     - uuid: ccd68ed0114941d99c38af67ea99b41e
       name: 'Templates/Futur-Tech/Network devices'
@@ -257,8 +257,7 @@ zabbix_export:
               name: 'Freebox just restarted'
               priority: INFO
       tags:
-        - tag: company
-          value: Futur-Tech
+        - tag: Futur-Tech
   triggers:
     - uuid: 5f0a1e4f70184686bc4274becdcd3a99
       expression: 'last(/Template Futur-Tech Net Freebox/freebox.sensor.cpub)>70 or last(/Template Futur-Tech Net Freebox/freebox.sensor.cpum)>70'
