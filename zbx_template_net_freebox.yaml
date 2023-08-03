@@ -1,13 +1,13 @@
 zabbix_export:
   version: '6.0'
-  date: '2023-08-01T18:03:52Z'
+  date: '2023-08-03T11:30:31Z'
   groups:
     - uuid: ccd68ed0114941d99c38af67ea99b41e
       name: 'Templates/Futur-Tech/Network devices'
   templates:
     - uuid: 3fb5cb11d7824ce7a0b4939b2d2edfa3
-      template: 'Template Futur-Tech Net Freebox'
-      name: 'Template Futur-Tech Net Freebox'
+      template: 'Futur-Tech Net Freebox'
+      name: 'Futur-Tech Net Freebox'
       description: 'https://github.com/Futur-Tech/futur-tech-zabbix-freebox'
       templates:
         - name: 'ICMP Ping'
@@ -18,7 +18,6 @@ zabbix_export:
           name: 'Freebox connection'
           type: EXTERNAL
           key: 'fbx_monitor.py[connection]'
-          delay: 60s
           history: '0'
           trends: '0'
           value_type: TEXT
@@ -29,7 +28,6 @@ zabbix_export:
           name: 'Freebox system'
           type: EXTERNAL
           key: 'fbx_monitor.py[system]'
-          delay: 60s
           history: '0'
           trends: '0'
           value_type: TEXT
@@ -54,7 +52,7 @@ zabbix_export:
               value: Freebox
           triggers:
             - uuid: 8ae63cc485b646f1ab0c9a23e2b99859
-              expression: 'find(/Template Futur-Tech Net Freebox/freebox.connection.status,,"like","up")=0'
+              expression: 'find(/Futur-Tech Net Freebox/freebox.connection.status,,"like","up")=0'
               name: 'Freebox connection lost'
               priority: HIGH
         - uuid: a97dc9e312c74ce9843085431e9072b6
@@ -75,7 +73,7 @@ zabbix_export:
               value: Freebox
           triggers:
             - uuid: 3f9e38bef9df49d6b5a9f39e5d8933cb
-              expression: 'find(/Template Futur-Tech Net Freebox/freebox.disk,,"like","active")=0'
+              expression: 'find(/Futur-Tech Net Freebox/freebox.disk,,"like","active")=0'
               name: 'Freebox disk error'
               priority: HIGH
         - uuid: bcf46b96b78748eabc1035b21b518267
@@ -83,11 +81,14 @@ zabbix_export:
           type: DEPENDENT
           key: freebox.download
           delay: '0'
-          units: bs
+          units: bps
           preprocessing:
             - type: JSONPATH
               parameters:
                 - $.rate_down
+            - type: MULTIPLIER
+              parameters:
+                - '8'
           master_item:
             key: 'fbx_monitor.py[connection]'
           tags:
@@ -110,7 +111,7 @@ zabbix_export:
               value: Freebox
           triggers:
             - uuid: 3f28f9f0111e41c0b84d3848d66fc0be
-              expression: 'last(/Template Futur-Tech Net Freebox/freebox.fan)<1000'
+              expression: 'last(/Futur-Tech Net Freebox/freebox.fan)<1000'
               name: 'Freebox Fan speed to slow'
               priority: WARNING
         - uuid: 202b33d77703481daab699ef0245ad5f
@@ -131,13 +132,13 @@ zabbix_export:
               value: Freebox
           triggers:
             - uuid: ceda72dab24941cdb73f40081cf36ab8
-              expression: '(last(/Template Futur-Tech Net Freebox/freebox.firmware,#1)<>last(/Template Futur-Tech Net Freebox/freebox.firmware,#2))=1'
+              expression: '(last(/Futur-Tech Net Freebox/freebox.firmware,#1)<>last(/Futur-Tech Net Freebox/freebox.firmware,#2))=1'
               recovery_mode: NONE
               name: 'Freebox firmware have changed'
               priority: WARNING
               manual_close: 'YES'
         - uuid: 2911f11151e543bba25628b0a80a58c6
-          name: 'Freebox cpu temperature B'
+          name: 'Freebox CPU temperature B'
           type: DEPENDENT
           key: freebox.sensor.cpub
           delay: '0'
@@ -152,7 +153,7 @@ zabbix_export:
             - tag: Application
               value: Freebox
         - uuid: 1a4c698682dd47b9b04e25621b2a19b3
-          name: 'Freebox cpu temperature M'
+          name: 'Freebox CPU temperature M'
           type: DEPENDENT
           key: freebox.sensor.cpum
           delay: '0'
@@ -183,14 +184,14 @@ zabbix_export:
               value: Freebox
           triggers:
             - uuid: cfd4fc0ced77437eb1b9d61ce5929ae5
-              expression: 'last(/Template Futur-Tech Net Freebox/freebox.sensor.disk)>50'
+              expression: 'last(/Futur-Tech Net Freebox/freebox.sensor.disk)>50'
               name: 'Freebox Disk temperature high'
               priority: WARNING
               dependencies:
                 - name: 'Freebox Disk temperature too high'
-                  expression: 'last(/Template Futur-Tech Net Freebox/freebox.sensor.disk)>60'
+                  expression: 'last(/Futur-Tech Net Freebox/freebox.sensor.disk)>60'
             - uuid: e2a1f9227f8c44f6b21c779f8ab26fd8
-              expression: 'last(/Template Futur-Tech Net Freebox/freebox.sensor.disk)>60'
+              expression: 'last(/Futur-Tech Net Freebox/freebox.sensor.disk)>60'
               name: 'Freebox Disk temperature too high'
               priority: AVERAGE
         - uuid: b2afa4ef8a5444238d0548e79694e3f8
@@ -210,14 +211,14 @@ zabbix_export:
               value: Freebox
           triggers:
             - uuid: ad3af3ba37114e0c8e2b5f68242be5ff
-              expression: 'last(/Template Futur-Tech Net Freebox/freebox.sensor.switch)>55'
+              expression: 'last(/Futur-Tech Net Freebox/freebox.sensor.switch)>55'
               name: 'Freebox Switch temperature high'
               priority: WARNING
               dependencies:
                 - name: 'Freebox Switch temperature too high'
-                  expression: 'last(/Template Futur-Tech Net Freebox/freebox.sensor.switch)>65'
+                  expression: 'last(/Futur-Tech Net Freebox/freebox.sensor.switch)>65'
             - uuid: edaf65caf18e46b0b6ee20d6bc061449
-              expression: 'last(/Template Futur-Tech Net Freebox/freebox.sensor.switch)>65'
+              expression: 'last(/Futur-Tech Net Freebox/freebox.sensor.switch)>65'
               name: 'Freebox Switch temperature too high'
               priority: AVERAGE
         - uuid: b7eecb30428643a285d31cca880c2eb3
@@ -225,11 +226,14 @@ zabbix_export:
           type: DEPENDENT
           key: freebox.upload
           delay: '0'
-          units: bs
+          units: bps
           preprocessing:
             - type: JSONPATH
               parameters:
                 - $.rate_up
+            - type: MULTIPLIER
+              parameters:
+                - '8'
           master_item:
             key: 'fbx_monitor.py[connection]'
           tags:
@@ -240,8 +244,7 @@ zabbix_export:
           type: DEPENDENT
           key: freebox.uptime
           delay: '0'
-          history: 1d
-          trends: '0'
+          units: uptime
           preprocessing:
             - type: JSONPATH
               parameters:
@@ -253,25 +256,27 @@ zabbix_export:
               value: Freebox
           triggers:
             - uuid: e7301ae6a0cc473380c7ae8f88a70860
-              expression: 'last(/Template Futur-Tech Net Freebox/freebox.uptime)<3600'
+              expression: 'last(/Futur-Tech Net Freebox/freebox.uptime)<3600'
               name: 'Freebox just restarted'
               priority: INFO
       tags:
         - tag: Futur-Tech
+        - tag: Upgraded
+          value: 'false'
   triggers:
     - uuid: 5f0a1e4f70184686bc4274becdcd3a99
-      expression: 'last(/Template Futur-Tech Net Freebox/freebox.sensor.cpub)>70 or last(/Template Futur-Tech Net Freebox/freebox.sensor.cpum)>70'
+      expression: 'last(/Futur-Tech Net Freebox/freebox.sensor.cpub)>70 or last(/Futur-Tech Net Freebox/freebox.sensor.cpum)>70'
       name: 'Freebox CPU Temperature high'
       priority: WARNING
       dependencies:
         - name: 'Freebox CPU Temperature too high'
-          expression: 'last(/Template Futur-Tech Net Freebox/freebox.sensor.cpub)>85 or last(/Template Futur-Tech Net Freebox/freebox.sensor.cpum)>85'
+          expression: 'last(/Futur-Tech Net Freebox/freebox.sensor.cpub)>85 or last(/Futur-Tech Net Freebox/freebox.sensor.cpum)>85'
     - uuid: 539017527b5641fd84676ad96cc3514e
-      expression: 'last(/Template Futur-Tech Net Freebox/freebox.sensor.cpub)>85 or last(/Template Futur-Tech Net Freebox/freebox.sensor.cpum)>85'
+      expression: 'last(/Futur-Tech Net Freebox/freebox.sensor.cpub)>85 or last(/Futur-Tech Net Freebox/freebox.sensor.cpum)>85'
       name: 'Freebox CPU Temperature too high'
       priority: AVERAGE
     - uuid: 253910e70ad741ee904c7d227edeab21
-      expression: 'nodata(/Template Futur-Tech Net Freebox/freebox.connection.status,15m)=1 or nodata(/Template Futur-Tech Net Freebox/freebox.disk,15m)=1'
+      expression: 'nodata(/Futur-Tech Net Freebox/freebox.connection.status,15m)=1 or nodata(/Futur-Tech Net Freebox/freebox.disk,15m)=1'
       name: 'Freebox monitoring offline'
       priority: HIGH
   graphs:
@@ -280,39 +285,39 @@ zabbix_export:
       graph_items:
         - color: 3949AB
           item:
-            host: 'Template Futur-Tech Net Freebox'
+            host: 'Futur-Tech Net Freebox'
             key: freebox.download
         - sortorder: '1'
           color: 03A9F4
           item:
-            host: 'Template Futur-Tech Net Freebox'
+            host: 'Futur-Tech Net Freebox'
             key: freebox.upload
     - uuid: fac24e67c1e44858ab439c2d7f4a4b31
       name: 'Freebox Fan Speed'
       graph_items:
         - color: 199C0D
           item:
-            host: 'Template Futur-Tech Net Freebox'
+            host: 'Futur-Tech Net Freebox'
             key: freebox.fan
     - uuid: 58d74fcca8404eab9fa1ec520405cc8b
       name: 'Freebox Temperature'
       graph_items:
         - color: 199C0D
           item:
-            host: 'Template Futur-Tech Net Freebox'
+            host: 'Futur-Tech Net Freebox'
             key: freebox.sensor.cpub
         - sortorder: '1'
           color: F63100
           item:
-            host: 'Template Futur-Tech Net Freebox'
+            host: 'Futur-Tech Net Freebox'
             key: freebox.sensor.cpum
         - sortorder: '2'
           color: 2774A4
           item:
-            host: 'Template Futur-Tech Net Freebox'
+            host: 'Futur-Tech Net Freebox'
             key: freebox.sensor.disk
         - sortorder: '3'
           color: F7941D
           item:
-            host: 'Template Futur-Tech Net Freebox'
+            host: 'Futur-Tech Net Freebox'
             key: freebox.sensor.switch
