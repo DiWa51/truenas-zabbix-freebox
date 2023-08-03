@@ -1,6 +1,6 @@
 zabbix_export:
   version: '6.0'
-  date: '2023-08-03T11:30:31Z'
+  date: '2023-08-03T18:30:31Z'
   groups:
     - uuid: ccd68ed0114941d99c38af67ea99b41e
       name: 'Templates/Futur-Tech/Network devices'
@@ -261,8 +261,6 @@ zabbix_export:
               priority: INFO
       tags:
         - tag: Futur-Tech
-        - tag: Upgraded
-          value: 'false'
   triggers:
     - uuid: 5f0a1e4f70184686bc4274becdcd3a99
       expression: 'last(/Futur-Tech Net Freebox/freebox.sensor.cpub)>70 or last(/Futur-Tech Net Freebox/freebox.sensor.cpum)>70'
