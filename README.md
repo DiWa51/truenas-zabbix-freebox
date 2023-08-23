@@ -1,17 +1,6 @@
 Zabbix Freebox Monitoring
 =========================
 
-Requirements
-------------
-
-You need Python 3.6 or above. All required packages is listed on requirements.txt
-please type the following command to install all requirements:
-
-```
-apt install python3-pip
-pip3 install -r requirements.txt
-```
-
 Install
 -------
 
@@ -26,6 +15,7 @@ cd futur-tech-zabbix-freebox
 # If you have some kind of double-WAN network balancing:
     sed 's/mafreebox.freebox.fr/192.168.1.1/g' fbx_monitor.py > /usr/lib/zabbix/externalscripts/fbx_monitor.py
 
+apt install python3-pip python3-requests python3-appdirs
 chmod +x /usr/lib/zabbix/externalscripts/fbx_monitor.py
 
 # Create the token
