@@ -17,8 +17,8 @@ Install
 
 ```bash
 cd /usr/local/src
-git clone git@github.com:GuillaumeHullin/freebox-monitoring.git
-cd freebox-monitoring
+git clone git@github.com:Futur-Tech/futur-tech-zabbix-freebox.git
+cd futur-tech-zabbix-freebox
 
 # If you have only one WAN:
     cp fbx_monitor.py /usr/lib/zabbix/externalscripts/fbx_monitor.py
