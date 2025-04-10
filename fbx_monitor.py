@@ -45,7 +45,7 @@ class ApiRequest:
     challenge = None
     app_id = "com.wcentric.zabbix"
     app_name = "FH Monitoring"
-    app_version = "0.0.1"
+    app_version = "0.0.2"
     app_token = None
     session_token = None
 
@@ -130,10 +130,12 @@ class ApiRequest:
                 self.session_token = None
                 log.warning("Invalid token, delete existing token.")
                 raise InvalidToken(body)
-
             elif body['error_code'] == 'auth_required':
-                log.debug('Require authentication.')
+                log.warning('Require authentication.')
                 raise AuthRequired(body)
+            elif body['error_code'] == 'new_apps_denied':
+                log.warning('New application association is not authorized by the Freebox. Enable it on freebox os.')
+                raise NotAuthorized(body)
 
             log.warning("Not authenticated.")
             raise ApiError(body)
