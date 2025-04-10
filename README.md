@@ -1,33 +1,7 @@
-Zabbix Freebox Monitoring
-=========================
+Zabbix Freebox Monitoring from a Truenas CORE jail
+==================================================
 
-Install
--------
+Background
+----------
+WIP
 
-```bash
-cd /usr/local/src
-git clone git@github.com:Futur-Tech/futur-tech-zabbix-freebox.git
-cd futur-tech-zabbix-freebox
-
-# If you have only one WAN:
-    cp fbx_monitor.py /usr/lib/zabbix/externalscripts/fbx_monitor.py
-
-# If you have some kind of double-WAN network balancing:
-    sed 's/mafreebox.freebox.fr/192.168.1.1/g' fbx_monitor.py > /usr/lib/zabbix/externalscripts/fbx_monitor.py
-
-apt install python3-pip python3-requests python3-appdirs
-chmod +x /usr/lib/zabbix/externalscripts/fbx_monitor.py
-
-# Create the token
-python3 /usr/lib/zabbix/externalscripts/fbx_monitor.py authorize
-# You will have to confirm the application access on Freebox front panel.
-
-# Give permission to Zabbix to check the token
-chown zabbix:zabbix /etc/xdg/freebox-monitoring/config.ini
-
-```
-
-Usage
------
-You can use the Zabbix Template in this repository or you can make your own template.
-The `fbx_monitor.py` script let you get a json answer of Freebox API calls.
