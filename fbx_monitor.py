@@ -1,9 +1,10 @@
-#!/usr/bin/env python3
+#!/usr/local/bin/python3
 
-"""Get Foreebox metrics for monitoring"""
+"""Get Freebox metrics for monitoring"""
 
 import requests
-
+import getpass
+import os
 import logging
 from appdirs import AppDirs
 from os.path import exists, join as path_join
@@ -44,7 +45,7 @@ class ApiRequest:
     api_url = "http://mafreebox.freebox.fr/api/v4/"
     challenge = None
     app_id = "com.wcentric.zabbix"
-    app_name = "FH Monitoring"
+    app_name = "FBX Monitoring"
     app_version = "0.0.2"
     app_token = None
     session_token = None
@@ -269,11 +270,27 @@ class MonitoringAgent:
         """
         return self.api.get("wifi/ap")
 
+    def vpn(self):
+        """
+        Get VPN Server info
+        :return:
+        """
+        return self.api.get("vpn")
+
 
 class Settings:
     config = ConfigParser()
     app_dir = AppDirs(appname="freebox-monitoring")
-    file_path_cache = path_join(app_dir.site_config_dir, "config.ini")
+    app_user_config_dir = app_dir.user_config_dir
+    file_path_cache = path_join(app_user_config_dir, "config.ini")
+    # 20220930: hardcoding the path if it starts with /.config
+    # For some unknown reasons in Zabbix hosted in a Truenas jail, app_dir.user_config_dir refers to the wrong path
+    # as it returns /.config and not /home/zabbix/.config
+
+    if app_user_config_dir.startswith("/.config"):
+        app_user_config_dir = '/home/' + getpass.getuser() + '/' + app_user_config_dir[1:]
+        file_path_cache = path_join(app_user_config_dir, "config.ini")
+
     instances = []
 
     def __init__(self):
@@ -281,9 +298,12 @@ class Settings:
         self.config.read([self.file_path_cache])
 
     def save(self):
-        if not exists(self.app_dir.site_config_dir):
+        directory = os.path.dirname(self.file_path_cache)
+        log.debug("App config file:" + self.file_path_cache)
+        if not exists(directory):
+            log.debug("App config dir to create:" + directory)
             from os import makedirs
-            makedirs(self.app_dir.site_config_dir)
+            makedirs(directory)
 
         for i in self.instances:
             self.save_object(i)
@@ -329,13 +349,20 @@ if __name__ == "__main__":
     command = ArgumentParser(description="Call Freebox API.")
     command.add_argument('action', action='store', choices=callables, help='Action or API method to execute')
     command.add_argument('-d', '--debug', action='store_true', help="Set debug mode")
+    command.add_argument('-t', '--test', action='store_true', help="Prints folders evaluation in this context.")
     args = command.parse_args()
 
     if args.debug:
         log.setLevel(logging.DEBUG)
         log.addHandler(logging.StreamHandler(sys.stderr))
 
-    if args.action == "authorize":
+    if args.test:
+        log.info('folder site_config_dir: '+config.app_dir.site_config_dir)
+        log.info('folder user_config_dir: '+config.app_dir.user_config_dir)
+        log.info('folder user_cache_dir: '+config.app_dir.user_cache_dir)
+        log.info('folder user_data_dir: '+config.app_dir.user_data_dir)
+        sys.exit(0)
+    elif args.action == "authorize":
         monitoring.authorize()
 
     else:
