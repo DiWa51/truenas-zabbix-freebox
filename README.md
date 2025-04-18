@@ -89,3 +89,9 @@ Preprocessing failed for: Require authentication..{"temp_sw": 39, "user_main_sto
 {"temp_sw": 39, "user_main_storage": "", "temp_cpu_cp_slave": 72, "temp_cpu_cp_master": 72, ...
 ```
 The "Require authentication" shouldn't be displayed as authentication has been done, and despite this the data is returned.
+
+### Credits
+Thanks to previous contributors that helped to build & enhance this script and the related zabbix template
+* [FanaticalHelp script](https://github.com/FanaticalHelp/freebox-monitoring)
+* [GuillaumeHullin](https://github.com/GuillaumeHullin/freebox-monitoring)
+* [Futur-Tech](https://github.com/Futur-Tech/futur-tech-zabbix-freebox)
