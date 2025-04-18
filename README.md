@@ -74,64 +74,18 @@ zabbix@zabbix% fbx_monitor.py connection
 {"type"= [...]}
 ```
 #### Zabbix
-Back to the Zabbix WebUI, things are still not yet working.
+Back to the Zabbix WebUI, things should now be running.
 
 From the hosts list, I selected the freebox and then its items list.
-There, I opened the "Template Freebox: Freebox connection" entry.
-From this page I use the **Test** button at the bottom; Make sure to "get value from host" (1st tick box)
+There, I opened the "Freebox: Get connection data" entry.
+From this page I use the **Test** button at the bottom; Make sure to "get value from host" (1st tick box), then press "Get values" you should get data in the Value field.
 
-1st, for some unknown reasons, the script returns an unknown Python3 error _(it is working in the shell!)_.
+### Known issue
 
-`... env: python3: No such file or directory`
-
-I fixed it by changing the shebang in fbx_monitor.py header to hardcoded absolute path to python3
-
-`#!/usr/local/bin/python3`
-
-2nd, another error is thrown stating the app is not authorized _(even though it was from the shell...)_
-I worked it around by running the _authorize_ step from the UI, using again the Test feature:
-
-- I replaced the _connection_ parameter by _authorize_ then test.
-- The Freebox asks to validate the app but even though I pressed YES "instantly", the UI throws a timeout exception
--- This was fixed by increasing the timeout entry in /usr/local/etc/zabbix7/zabbix-server.conf to a greater value (arbitrarily 24 instead of 4)
--- next issue is a permission denied to create a /.cache folder
--- Fixed by manually creating /.cache/fbx-Zabbox folders (yes from / !!!)
-`mkdir -p /.cache/fbx-Zabbox`
-
-Finally the **script is running**, _hooray_, I have data from my Freebox into Zabbix.
-
-### Now comes the remaining issues:
-
-Why does it need to create the .cache under / directly? Why doesn't it use the /home/zabbix/.cache folder? i.e. the user running the zabbix processes
-Why can't it use the env setup for python3 in the shebang?
-All in all it seems the zabbix user in the shell is not behaving as the zabbix user from the WebUI. WHY?
-
-Thanks a lot for your lights
-
-### Original README
-
-```bash
-cd /usr/local/src
-git clone git@github.com:Futur-Tech/futur-tech-zabbix-freebox.git
-cd futur-tech-zabbix-freebox
-
-# If you have only one WAN:
-cp fbx_monitor.py /usr/lib/zabbix/externalscripts/fbx_monitor.py
-
-# If you have some kind of double-WAN network balancing:
-sed 's/mafreebox.freebox.fr/192.168.1.1/g' fbx_monitor.py > /usr/lib/zabbix/externalscripts/fbx_monitor.py
-
-apt install python3-pip python3-requests python3-appdirs
-chmod +x /usr/lib/zabbix/externalscripts/fbx_monitor.py
-
-# Create the token
-python3 /usr/lib/zabbix/externalscripts/fbx_monitor.py authorize
-# You will have to confirm the application access on Freebox front panel.
-
-# Give permission to Zabbix to check the token
-chown zabbix:zabbix /etc/xdg/freebox-monitoring/config.ini
-
+For some reasons, the items get
 ```
-You can use the Zabbix Template in this repository or you can make your own template.
-The `fbx_monitor.py` script let you get a json answer of Freebox API calls.
-
+Preprocessing failed for: Require authentication..{"temp_sw": 39, "user_main_storage": "", "temp_cpu_cp_slave": 72, "mac": ...
+1. Failed: cannot extract value from json by path "$.uptime_val": invalid object format, expected opening character '{' or '[' at: 'Require authentication.
+{"temp_sw": 39, "user_main_storage": "", "temp_cpu_cp_slave": 72, "temp_cpu_cp_master": 72, ...
+```
+The "Require authentication" shouldn't be displayed as authentication has been done, and despite this the data is returned.
