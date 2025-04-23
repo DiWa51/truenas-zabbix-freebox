@@ -132,7 +132,7 @@ class ApiRequest:
                 log.warning("Invalid token, delete existing token.")
                 raise InvalidToken(body)
             elif body['error_code'] == 'auth_required':
-                log.debug('Require authentication.<')
+                log.debug('Require authentication.')
                 raise AuthRequired(body)
             elif body['error_code'] == 'new_apps_denied':
                 log.warning('New application association is not authorized by the Freebox. Enable it on freebox os.')
