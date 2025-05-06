@@ -80,16 +80,6 @@ From the hosts list, I selected the freebox and then its items list.
 There, I opened the "Freebox: Get connection data" entry.
 From this page I use the **Test** button at the bottom; Make sure to "get value from host" (1st tick box), then press "Get values" you should get data in the Value field.
 
-### Known issue
-
-For some reasons, the items get
-```
-Preprocessing failed for: Require authentication..{"temp_sw": 39, "user_main_storage": "", "temp_cpu_cp_slave": 72, "mac": ...
-1. Failed: cannot extract value from json by path "$.uptime_val": invalid object format, expected opening character '{' or '[' at: 'Require authentication.
-{"temp_sw": 39, "user_main_storage": "", "temp_cpu_cp_slave": 72, "temp_cpu_cp_master": 72, ...
-```
-The "Require authentication" shouldn't be displayed as authentication has been done, and despite this the data is returned.
-
 ### Credits
 Thanks to previous contributors that helped to build & enhance this script and the related zabbix template
 * [FanaticalHelp script](https://github.com/FanaticalHelp/freebox-monitoring)
